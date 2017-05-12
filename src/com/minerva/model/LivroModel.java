@@ -2,9 +2,17 @@ package com.minerva.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@Entity
+@Table(name="livro")
 public class LivroModel implements Serializable {
 
 	/**
@@ -12,11 +20,24 @@ public class LivroModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id //primary key
+	//@GeneratedValue(strategy=GenerationType.IDENTITY) //identity(1,1)
+	@Column(name="codigo")
 	Integer codigo;
+	
+	@Column(name="titulo", length=100, nullable=false)
 	String titulo;
+	
+	@Column(name="autor", length=50, nullable=false)
 	String autor;
+	
+	@Column(name="ano", nullable=false)
 	Integer ano;
+	
+	@Column(name="local", length=200, nullable=false)
 	String local;
+	
+	@Column(name="quantidade", nullable=false)
 	Integer quantidade;
 	
 	public LivroModel(){
