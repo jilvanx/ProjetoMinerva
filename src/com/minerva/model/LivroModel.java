@@ -38,15 +38,11 @@ public class LivroModel implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ano == null) ? 0 : ano.hashCode());
-		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((local == null) ? 0 : local.hashCode());
-		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
-		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
-	
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -56,40 +52,15 @@ public class LivroModel implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LivroModel other = (LivroModel) obj;
-		if (ano == null) {
-			if (other.ano != null)
-				return false;
-		} else if (!ano.equals(other.ano))
-			return false;
-		if (autor == null) {
-			if (other.autor != null)
-				return false;
-		} else if (!autor.equals(other.autor))
-			return false;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
-		if (local == null) {
-			if (other.local != null)
-				return false;
-		} else if (!local.equals(other.local))
-			return false;
-		if (quantidade == null) {
-			if (other.quantidade != null)
-				return false;
-		} else if (!quantidade.equals(other.quantidade))
-			return false;
-		if (titulo == null) {
-			if (other.titulo != null)
-				return false;
-		} else if (!titulo.equals(other.titulo))
-			return false;
 		return true;
 	}
-	
-	
+
+
 	public Integer getCodigo() {
 		return codigo;
 	}
