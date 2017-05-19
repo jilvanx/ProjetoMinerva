@@ -27,9 +27,11 @@ livroModulo.controller("livrosController", function($scope, $http){
 	$scope.salvar = function(){
 		
 		if ($scope.livro.codigo == undefined){
+			
 			$http.post(urlLivro, $scope.livro).success(function(livro){
 				
-				$scope.livros.push($scope.livro);
+				//$scope.livros.push($scope.livro);
+				$scope.listarLivros();
 				$scope.limparCampos();
 				
 			}).error(function (erro){

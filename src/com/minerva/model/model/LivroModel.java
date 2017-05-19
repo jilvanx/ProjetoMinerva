@@ -1,4 +1,4 @@
-package com.minerva.model;
+package com.minerva.model.model;
 
 import java.io.Serializable;
 
@@ -17,11 +17,11 @@ public class LivroModel implements Serializable {
 
 	/**
 	 * 
-	 */
+	*/
 	private static final long serialVersionUID = 1L;
 
 	@Id //primary key
-	//@GeneratedValue(strategy=GenerationType.IDENTITY) //identity(1,1)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //identity(1,1)
 	@Column(name="codigo")
 	Integer codigo;
 	

@@ -1,8 +1,8 @@
 package com.minerva.model.rest.facade;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,46 +13,48 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.minerva.model.LivroModel;
+import com.minerva.model.model.LivroModel;
+import com.minerva.model.services.LivroServiceInterface;
 
 @Path("/livros")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes(MediaType.APPLICATION_JSON)
 public class LivrosFacade {
 
-	static List<LivroModel> listaLivros = new ArrayList<LivroModel>();
 	
-	static {
-		listaLivros.add(new LivroModel(1, "Livro 1", "Jilvan Cândido", 2000, "Estante 3", 10));
-		listaLivros.add(new LivroModel(2, "Em Chamas", "Giovanna Cândido", 2004, "Estante 1", 5));
-		listaLivros.add(new LivroModel(3, "A Culpa é das Estrelas", "Adriana Cândido", 2014, "Estante 2", 60));
-	}
+	/*Usando direto, sem o uso do serviço*/
+	/*@Inject
+	private LivroDaoImplem livroDaoImplem;
 	
 	@GET
-	public List<LivroModel> getLivros(){
-		return listaLivros;
+	public List<LivroModel> getLivros() {		
+		return livroDaoImplem.getLivros();
+	}*/
+	
+	@Inject
+	private LivroServiceInterface livroServiceInterface;
+
+	@GET
+	public List<LivroModel> getLivros() {		
+		return livroServiceInterface.getLivros();
 	}
 	
 	@POST
-	public LivroModel salvar(LivroModel livro){
-		listaLivros.add(livro);
-		return livro;
+	public LivroModel salvar(LivroModel livroModel){
+		return livroServiceInterface.salvar(livroModel);
 	}
 	
 	@PUT
-	public void atualizar(LivroModel livro){
-		listaLivros.remove(livro);
-		listaLivros.add(livro);
+	public void atualizar(LivroModel livroModel){
+		livroServiceInterface.alterar(livroModel);
 	}
 	
 	@DELETE
 	@Path("/{codigoLivro}")
-	public void excluir(@PathParam("codigoLivro") Integer codigolivro){
-		
-		LivroModel livro = new LivroModel();
-		livro.setCodigo(codigolivro);
-		listaLivros.remove(livro);
-		
+	public void excluir (@PathParam("codigoLivro") Integer codigoLivro){
+		LivroModel livroModel = new LivroModel();
+		livroModel.setCodigo(codigoLivro);
+		livroServiceInterface.excluir(livroModel);
 	}
 	
 }
