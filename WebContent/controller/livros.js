@@ -6,14 +6,14 @@ livroModulo.controller("livrosController", function($scope, $http){
 	
 	$scope.listarLivros = function() {
 		
-		$http.get(urlLivro).success(function (livros){
-			
-			$scope.livros = livros;
-			
-		}).error(function (erro){
-			alert(erro);
-		});
-			
+	     $http.get(urlLivro).then(successCallback, errorCallback);
+	     function successCallback(response){
+	    	 $scope.livros = response.data;
+	     }
+	     function errorCallback(error){
+	         alert(erro);
+	     }	
+	     
 	}
 	
 	$scope.selecionaLivro = function(livroSelecionado){
@@ -28,28 +28,31 @@ livroModulo.controller("livrosController", function($scope, $http){
 		
 		if ($scope.livro.codigo == undefined){
 			
-			$http.post(urlLivro, $scope.livro).success(function(livro){
-				
-				//$scope.livros.push($scope.livro);
-				$scope.listarLivros();
-				$scope.limparCampos();
-				
-			}).error(function (erro){
-				alert(erro);
-			});
+			$http.post(urlLivro, $scope.livro).then(successCallback, errorCallback);
 			
-		} else {
-			$http.put(urlLivro, $scope.livro).success(function(livro){
+			function successCallback(response){
+				$scope.livros.push(response.data);
+		        $scope.limparCampos();
+		        $scope.listarLivros();
+			}
+			function errorCallback(error){
+				alert(erro);
+			}
 				
+		} else {
+			
+			$http.put(urlLivro, $scope.livro).then(successCallback, errorCallback);
+			function successCallback(response){
 				$scope.listarLivros();
 				$scope.limparCampos();
-				
-			}).error(function (erro){
+			}
+			function errorCallback(error){
 				alert(erro);
-			});
+			}			 
+			
 		}
 		
-		$scope.limparCampos();
+
 	}
 
 	$scope.excluir = function(){
@@ -59,12 +62,14 @@ livroModulo.controller("livrosController", function($scope, $http){
 			
 		}else{
 			
-			$http.delete(urlLivro + '/' + $scope.livro.codigo).success(function(){
+			$http.delete(urlLivro + '/' + $scope.livro.codigo).then(successCallback, errorCallback);
+			function successCallback(){
 				$scope.listarLivros();
 				$scope.limparCampos();
-			}).error(function (erro){
+			}
+			function errorCallback(error){
 				alert(erro);
-			});
+			}			 
 			
 		}
 	}
@@ -73,3 +78,4 @@ livroModulo.controller("livrosController", function($scope, $http){
 	$scope.listarLivros();
 	
 });
+
